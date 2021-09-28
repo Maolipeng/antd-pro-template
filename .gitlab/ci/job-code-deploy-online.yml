@@ -1,0 +1,40 @@
+
+code_build_online:
+  image: ${DOCKER_REG}/public/node:15.6
+  stage: "代码构建"
+  script:
+    - npm_build
+  
+  artifacts:
+    name: "$CI_COMMIT_REF_NAME"
+    expire_in: 1 week
+    paths:
+      - dist/
+  only:
+    refs:
+    - master
+    - tags
+  except:
+    changes:
+    - "*.md"
+  tags:
+    - online
+  when: manual
+
+code_deploy_online:
+  stage: "代码部署"
+  needs:
+    - job: code_build_online
+      artifacts: true
+  script:
+    - code_deploy
+  only:
+    refs:
+    - master
+    - tags
+  except:
+    changes:
+    - "*.md"
+  tags:
+    - online
+  when: manual

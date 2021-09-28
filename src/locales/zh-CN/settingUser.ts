@@ -1,0 +1,16 @@
+export default {
+  'settings.userManage.username': '用户名',
+  'settings.userManage.name': '姓名',
+  'settings.userManage.role': '角色',
+  'settings.userManage.email': '邮箱',
+  'settings.userManage.phone': '手机',
+  'settings.userManage.Authorities': '权限范围',
+  'settings.userManage.modify-time': '修改时间',
+  'settings.userManage.status': '状态',
+  'settings.userManage.operate': '操作',
+  'settings.userRole.operate': '操作',
+  'settings.userRole.name': '角色名',
+  'settings.userRole.description': '角色描述',
+  'settings.userRole.authorities': '权限范围',
+  'settings.userRole.modifytime': '修改时间',
+};

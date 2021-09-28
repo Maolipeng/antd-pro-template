@@ -1,0 +1,42 @@
+code_build_test:
+  image: ${DOCKER_REG}/public/node:15.6
+  stage: "代码构建"
+  script:
+    - npm_build
+  cache:
+    key: ${CI_BUILD_REF_NAME}
+    paths:
+      - node_modules/
+      - .yarn
+    policy: pull
+  artifacts:
+    name: "$CI_COMMIT_REF_NAME"
+    expire_in: 1 week
+    paths:
+      - dist/
+  except:
+    refs:
+    - master
+    - tags
+    changes:
+    - "*.md"
+  tags:
+    - online
+  when: manual
+
+code_deploy_test:
+  stage: "代码部署"
+  needs:
+    - job: code_build_test
+      artifacts: true
+  script:
+    - code_deploy
+  except:
+    refs:
+    - master
+    - tags
+    changes:
+    - "*.md"
+  tags:
+    - online
+  when: manual
